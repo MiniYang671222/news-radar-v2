@@ -7,7 +7,15 @@ on:
 permissions:
   contents: write
 jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v10.0.0
+      - name: 執行測試
+        run: uv run pytest
   monitor:
+    needs: test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
