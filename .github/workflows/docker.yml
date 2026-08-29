@@ -1,0 +1,13 @@
+name: Docker
+on: workflow_dispatch
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      - run: docker run hello-world
+      - name: 這台機器的環境
+        run: |
+          cat /etc/os-release | head -1
+          python3 --version
+      - name: 光碟裡的環境
+        run: docker run python:3.9-slim sh -c "cat /etc/os-release | head -1; python --version"
