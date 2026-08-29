@@ -1,4 +1,4 @@
-# radar.py 的自動化測試。用 uv run pytest 執行。這週多了第四個：驗記憶。
+# radar.py 的自動化測試。用 uv run pytest 執行。現在有五個測試。
 
 # 從 radar.py 載入這次要測試的三個函式。
 from radar import build_message, make_feed_url, pick_new
@@ -44,3 +44,11 @@ def test_看過的新聞不再出現():
     new_items = pick_new(items, seen)
     assert len(new_items) == 1
     assert new_items[0]["title"] == "沒看過的"
+def test_訊息包含連結():
+    items = [
+        {"title": "測試新聞一", "link": "https://example.com/1"},
+        {"title": "測試新聞二", "link": "https://example.com/2"},
+    ]
+    message = build_message("測試主題", items)
+    assert "https://example.com/1" in message
+    assert "https://example.com/2" in message

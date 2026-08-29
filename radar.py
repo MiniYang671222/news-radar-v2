@@ -67,6 +67,7 @@ def build_message(keyword, items):
     lines = ["【新聞雷達】「" + keyword + "」有 " + str(len(picked)) + " 則新消息"]
     for item in picked:
         lines.append("・" + item["title"])
+        lines.append(item["link"])
     return "\n".join(lines)
 
 
