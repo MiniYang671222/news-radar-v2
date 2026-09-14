@@ -85,10 +85,13 @@ def pick_new(items, seen):
     return [item for item in items if item["link"] not in seen]
 
 
-# 組訊息：把新聞清單組成一則通知訊息。
+# 組訊息：把新聞清單組成一則通知訊息（強制限制最多 MAX_ITEMS 則）。
 def build_message(keyword, items):
-    lines = ["【新聞雷達】「" + keyword + "」有 " + str(len(items)) + " 則新消息"]
-    for item in items:
+    # 強制截取前 MAX_ITEMS 則新聞，確保訊息不超過上限
+    display_items = items[:MAX_ITEMS]
+    
+    lines = ["【新聞雷達】「" + keyword + "」有 " + str(len(display_items)) + " 則新消息"]
+    for item in display_items:
         lines.append("・" + item["title"])
         lines.append(item["link"])
     return "\n".join(lines)
